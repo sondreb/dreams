@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <div class="fullscreen-container">
       <img src="/icons/icon-1024x1024.png" alt="Dreams Logo" class="logo" />
-      <h1>In development...</h1>
+      <h1>Dreams</h1>
       <button routerLink="/dreams" class="start-button">Open Dream Journal</button>
     </div>
   `,
