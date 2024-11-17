@@ -1,3 +1,6 @@
 <div class="app-container">
   <router-outlet />
+  <button *ngIf="showInstallButton" (click)="installPwa()" class="install-button">
+    Install App
+  </button>
 </div>
