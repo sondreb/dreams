@@ -9,14 +9,16 @@ import { DreamEntry } from '../../models/dream-entry';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="list-container">
-      <h1>My Dream Journal</h1>
-      <button (click)="newDream()" class="new-dream-btn">New Dream Entry</button>
-      <div class="dreams-list">
-        <div *ngFor="let dream of dreams" class="dream-card" (click)="editDream(dream.id)">
-          <h3>{{dream.title}}</h3>
-          <p>{{dream.date | date:'medium'}}</p>
-          <p class="preview">{{dream.content.substring(0, 100)}}...</p>
+    <div class="page-container">
+      <div class="content-card list-container">
+        <h1>My Dream Journal</h1>
+        <button (click)="newDream()" class="new-dream-btn">New Dream Entry</button>
+        <div class="dreams-list">
+          <div *ngFor="let dream of dreams" class="dream-card" (click)="editDream(dream.id)">
+            <h3>{{dream.title}}</h3>
+            <p>{{dream.date | date:'medium'}}</p>
+            <p class="preview">{{dream.content.substring(0, 100)}}...</p>
+          </div>
         </div>
       </div>
     </div>
@@ -25,7 +27,6 @@ import { DreamEntry } from '../../models/dream-entry';
     .list-container {
       max-width: 800px;
       margin: 2rem auto;
-      padding: 1rem;
     }
     .new-dream-btn {
       margin-bottom: 2rem;
@@ -36,7 +37,8 @@ import { DreamEntry } from '../../models/dream-entry';
     }
     .dream-card {
       padding: 1rem;
-      border: 1px solid #ccc;
+      background: white;
+      border: 1px solid #eee;
       border-radius: 4px;
       cursor: pointer;
       transition: transform 0.2s;
@@ -57,7 +59,8 @@ export class DreamListComponent {
     private dreamService: DreamService,
     private router: Router
   ) {
-    this.dreams = this.dreamService.getDreams();
+    this.dreams = this.dreamService.getDreams()
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
   newDream() {

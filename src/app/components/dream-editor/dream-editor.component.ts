@@ -10,12 +10,15 @@ import { DreamEntry } from '../../models/dream-entry';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="editor-container">
-      <input [(ngModel)]="dream.title" placeholder="Dream Title" class="title-input">
-      <textarea [(ngModel)]="dream.content" placeholder="Describe your dream..." class="content-input"></textarea>
-      <div class="button-container">
-        <button (click)="saveDream()">Save Dream</button>
-        <button (click)="goBack()" class="secondary">Back to List</button>
+    <div class="page-container">
+      <div class="content-card editor-container">
+        <input [(ngModel)]="dream.title" placeholder="Dream Title" class="title-input">
+        <textarea [(ngModel)]="dream.content" placeholder="Describe your dream..." class="content-input"></textarea>
+        <div class="button-container">
+          <button (click)="saveDream()">Save Dream</button>
+          <button (click)="goBack()" class="secondary">Back to List</button>
+          <button *ngIf="dream.id" (click)="deleteDream()" class="delete">Delete Dream</button>
+        </div>
       </div>
     </div>
   `,
@@ -23,7 +26,6 @@ import { DreamEntry } from '../../models/dream-entry';
     .editor-container {
       max-width: 800px;
       margin: 2rem auto;
-      padding: 1rem;
     }
     .title-input {
       width: 100%;
@@ -48,6 +50,10 @@ import { DreamEntry } from '../../models/dream-entry';
     }
     .secondary {
       background-color: #6c757d;
+    }
+    .delete {
+      background-color: #dc3545;
+      margin-left: auto;
     }
   `]
 })
@@ -82,5 +88,12 @@ export class DreamEditorComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/dreams']);
+  }
+
+  deleteDream() {
+    if (confirm('Are you sure you want to delete this dream?')) {
+      this.dreamService.deleteDream(this.dream.id);
+      this.goBack();
+    }
   }
 }
