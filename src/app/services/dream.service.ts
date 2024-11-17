@@ -5,7 +5,7 @@ import { DreamEntry } from '../models/dream-entry';
   providedIn: 'root'
 })
 export class DreamService {
-  private readonly STORAGE_KEY = 'dreamJournal';
+  private readonly STORAGE_KEY = 'dreams';
 
   getDreams(): DreamEntry[] {
     const dreams = localStorage.getItem(this.STORAGE_KEY);
